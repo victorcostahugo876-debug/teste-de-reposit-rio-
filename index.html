@@ -4,805 +4,278 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>NexCobra | Gestão de Cobranças</title>
-
+<title>NexCobra</title>
 <style>
-:root {
-    --bg: #09090e;
-    --sidebar: #101017;
-    --panel: #14141d;
-    --panel-hover: #191923;
-    --border: #292735;
-    --purple: #a36aff;
-    --purple-light: #c29aff;
-    --text: #f4f2f8;
-    --muted: #898695;
-    --red: #ff777e;
-    --green: #65d6a1;
-    --yellow: #e9c36b;
-}
-
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: Inter, Arial, sans-serif;
-}
-
-body {
-    background: var(--bg);
-    color: var(--text);
-    display: flex;
-    min-height: 100vh;
-}
-
-/* MENU LATERAL */
-
-.sidebar {
-    width: 250px;
-    background: var(--sidebar);
-    border-right: 1px solid var(--border);
-    padding: 28px 18px;
-    flex-shrink: 0;
-}
-
-.logo {
-    font-size: 26px;
-    font-weight: 800;
-    letter-spacing: -1px;
-    margin: 0 0 42px 8px;
-}
-
-.logo span {
-    color: var(--purple);
-}
-
-.menu-title {
-    color: #777482;
-    font-size: 11px;
-    margin: 25px 10px 12px;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-}
-
-.menu a {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    color: #aaa8b5;
-    text-decoration: none;
-    padding: 13px 14px;
-    margin: 5px 0;
-    border-radius: 9px;
-    font-size: 14px;
-    cursor: pointer;
-    transition: .2s;
-}
-
-.menu a:hover,
-.menu a.active {
-    background: #25183c;
-    color: var(--purple-light);
-}
-
-.menu-icon {
-    width: 20px;
-    text-align: center;
-}
-
-/* CONTEÚDO PRINCIPAL */
-
-.main {
-    flex: 1;
-    min-width: 0;
-    padding: 35px;
-}
-
-.topbar {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    gap: 20px;
-    margin-bottom: 30px;
-}
-
-.topbar h1 {
-    font-size: 25px;
-    font-weight: 700;
-}
-
-.subtitle {
-    color: var(--muted);
-    font-size: 13px;
-    margin-top: 7px;
-}
-
-.user {
-    background: #19151f;
-    border: 1px solid #30243e;
-    padding: 11px 16px;
-    border-radius: 10px;
-    color: var(--purple-light);
-    font-size: 13px;
-    white-space: nowrap;
-}
-
-/* BOAS-VINDAS */
-
-.welcome {
-    background: linear-gradient(110deg, #28183f, #15111e);
-    border: 1px solid #49306c;
-    border-radius: 14px;
-    padding: 25px;
-    margin-bottom: 30px;
-}
-
-.welcome h2 {
-    font-size: 20px;
-    margin-bottom: 9px;
-}
-
-.welcome p {
-    color: #b7a9c9;
-    font-size: 13px;
-    line-height: 1.6;
-}
-
-/* TÍTULOS */
-
-.section-title {
-    font-size: 17px;
-    margin: 30px 0 17px;
-}
-
-/* CARTÕES */
-
-.cards {
-    display: grid;
-    grid-template-columns: repeat(4, minmax(0, 1fr));
-    gap: 16px;
-}
-
-.card {
-    background: var(--panel);
-    border: 1px solid var(--border);
-    border-radius: 13px;
-    padding: 21px;
-    transition: .2s;
-}
-
-.card:hover {
-    border-color: #8050c9;
-    transform: translateY(-2px);
-}
-
-.card-label {
-    color: #9995a3;
-    font-size: 13px;
-}
-
-.card-value {
-    font-size: 25px;
-    font-weight: 750;
-    margin: 15px 0 8px;
-}
-
-.card-detail {
-    color: var(--muted);
-    font-size: 12px;
-}
-
-.purple { color: var(--purple-light); }
-.red { color: var(--red); }
-.green { color: var(--green); }
-.yellow { color: var(--yellow); }
-
-/* PAINÉIS */
-
-.content-grid {
-    display: grid;
-    grid-template-columns: 1.5fr 1fr;
-    gap: 18px;
-}
-
-.panel {
-    background: var(--panel);
-    border: 1px solid var(--border);
-    border-radius: 13px;
-    padding: 22px;
-    min-width: 0;
-}
-
-.panel h3 {
-    font-size: 15px;
-    margin-bottom: 18px;
-}
-
-.item {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    gap: 12px;
-    padding: 15px 0;
-    border-bottom: 1px solid var(--border);
-    font-size: 13px;
-}
-
-.item:last-child {
-    border: none;
-}
-
-.item small {
-    display: block;
-    color: var(--muted);
-    margin-top: 5px;
-    line-height: 1.5;
-}
-
-.status {
-    display: inline-block;
-    padding: 6px 9px;
-    border-radius: 6px;
-    font-size: 10px;
-    margin-top: 6px;
-    white-space: nowrap;
-}
-
-.red-bg {
-    color: #ff858b;
-    background: #3a1d24;
-}
-
-.purple-bg {
-    color: #c29aff;
-    background: #2b1c42;
-}
-
-.green-bg {
-    color: #75dfac;
-    background: #183629;
-}
-
-.yellow-bg {
-    color: #e9c36b;
-    background: #3a301b;
-}
-
-/* ATIVIDADES */
-
-.activity {
-    display: flex;
-    gap: 12px;
-    padding: 13px 0;
-    border-bottom: 1px solid var(--border);
-    font-size: 13px;
-}
-
-.activity:last-child {
-    border: none;
-}
-
-.dot {
-    width: 9px;
-    height: 9px;
-    background: var(--purple);
-    border-radius: 50%;
-    margin-top: 4px;
-    flex-shrink: 0;
-}
-
-.activity small {
-    display: block;
-    color: var(--muted);
-    margin-top: 5px;
-}
-
-/* AGENDA */
-
-.agenda-item {
-    display: flex;
-    align-items: center;
-    gap: 14px;
-    padding: 14px 0;
-    border-bottom: 1px solid var(--border);
-}
-
-.agenda-item:last-child {
-    border: none;
-}
-
-.agenda-date {
-    background: #25183c;
-    color: var(--purple-light);
-    border-radius: 9px;
-    padding: 10px;
-    text-align: center;
-    min-width: 52px;
-}
-
-.agenda-date strong {
-    display: block;
-    font-size: 18px;
-}
-
-.agenda-date small {
-    font-size: 10px;
-}
-
-.agenda-info {
-    font-size: 13px;
-}
-
-.agenda-info small {
-    display: block;
-    color: var(--muted);
-    margin-top: 5px;
-}
-
-/* SEÇÕES DE DEMONSTRAÇÃO */
-
-.page-section {
-    display: none;
-}
-
-.page-section.active {
-    display: block;
-}
-
-.empty-state {
-    text-align: center;
-    padding: 55px 20px;
-    color: var(--muted);
-}
-
-.empty-state h2 {
-    color: var(--text);
-    margin-bottom: 12px;
-    font-size: 20px;
-}
-
-.empty-state p {
-    font-size: 13px;
-    line-height: 1.7;
-}
-
-.page-section .panel {
-    margin-top: 20px;
-}
-
-/* RESPONSIVIDADE */
-
-@media(max-width: 1100px) {
-    .cards {
-        grid-template-columns: repeat(2, 1fr);
-    }
-
-    .content-grid {
-        grid-template-columns: 1fr;
-    }
-}
-
-@media(max-width: 700px) {
-    body {
-        display: block;
-    }
-
-    .sidebar {
-        width: 100%;
-        padding: 17px;
-    }
-
-    .logo {
-        margin-bottom: 15px;
-    }
-
-    .menu {
-        display: flex;
-        overflow-x: auto;
-        gap: 5px;
-    }
-
-    .menu-title {
-        display: none;
-    }
-
-    .menu a {
-        white-space: nowrap;
-        font-size: 12px;
-    }
-
-    .main {
-        padding: 20px;
-    }
-
-    .topbar {
-        align-items: flex-start;
-    }
-
-    .user {
-        display: none;
-    }
-
-    .cards {
-        grid-template-columns: repeat(2, 1fr);
-    }
-
-    .card {
-        padding: 15px;
-    }
-
-    .card-value {
-        font-size: 20px;
-    }
-}
-
-@media(max-width: 390px) {
-    .cards {
-        grid-template-columns: 1fr;
-    }
-}
+*{box-sizing:border-box;margin:0;padding:0;font-family:Arial,sans-serif}
+:root{--bg:#09090e;--side:#101017;--panel:#14141d;--border:#292735;--purple:#a36aff;--text:#f4f2f8;--muted:#898695}
+body{background:var(--bg);color:var(--text);display:flex;min-height:100vh}
+.sidebar{width:245px;background:var(--side);border-right:1px solid var(--border);padding:27px 17px;flex-shrink:0}
+.logo{font-size:26px;font-weight:800;margin:0 0 40px 8px}
+.logo span{color:var(--purple)}
+.menu-title{font-size:11px;color:#777482;margin:25px 10px 12px;text-transform:uppercase;letter-spacing:1px}
+.menu a{display:flex;gap:12px;padding:13px 12px;margin:5px 0;border-radius:9px;color:#aaa8b5;text-decoration:none;font-size:14px;cursor:pointer}
+.menu a:hover,.menu a.active{background:#25183c;color:#c29aff}
+.main{flex:1;min-width:0;padding:34px}
+header{display:flex;justify-content:space-between;align-items:center;margin-bottom:28px;gap:15px}
+h1{font-size:25px}
+.subtitle{color:var(--muted);font-size:13px;margin-top:7px}
+.user{background:#19151f;border:1px solid #30243e;padding:11px 15px;border-radius:9px;color:#c29aff;font-size:12px}
+.page{display:none}.page.active{display:block}
+.welcome{background:linear-gradient(110deg,#28183f,#15111e);border:1px solid #49306c;border-radius:13px;padding:25px;margin-bottom:25px}
+.welcome p{color:#b7a9c9;font-size:13px;margin-top:9px;line-height:1.6}
+.cards{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:15px;margin:16px 0 28px}
+.card,.panel{background:var(--panel);border:1px solid var(--border);border-radius:12px;padding:20px}
+.card small{color:var(--muted);font-size:12px}
+.value{font-size:24px;font-weight:bold;margin:14px 0 7px}
+.purple{color:#c29aff}.red{color:#ff777e}.green{color:#65d6a1}.yellow{color:#e9c36b}
+h2{font-size:17px;margin:28px 0 15px}
+h3{font-size:15px;margin-bottom:18px}
+.grid{display:grid;grid-template-columns:1.4fr 1fr;gap:16px}
+.rowitem{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:14px 0;border-bottom:1px solid var(--border);font-size:13px}
+.rowitem:last-child{border:0}
+.muted{color:var(--muted);font-size:12px;display:block;margin-top:5px}
+.status{font-size:10px;padding:6px 8px;border-radius:5px;display:inline-block;margin-top:5px}
+.status.red{background:#3a1d24}.status.purple{background:#2b1c42}.status.green{background:#183629}
+.toolbar{display:flex;gap:10px;flex-wrap:wrap;margin:18px 0}
+input,select{background:#101018;color:white;border:1px solid var(--border);padding:12px;border-radius:8px;min-width:150px;outline:none}
+input:focus,select:focus{border-color:var(--purple)}
+button{background:#8050c9;color:white;border:0;padding:11px 15px;border-radius:8px;cursor:pointer}
+button.secondary{background:#201b2a;border:1px solid #393044;color:#c29aff}
+table{width:100%;border-collapse:collapse;min-width:650px}
+th{text-align:left;color:#928da0;font-size:11px;font-weight:normal;padding:14px 10px;border-bottom:1px solid var(--border)}
+td{padding:15px 10px;font-size:12px;border-bottom:1px solid var(--border)}
+.table-wrap{overflow-x:auto}
+.activity{padding:13px 0;border-bottom:1px solid var(--border);font-size:13px}
+.activity:last-child{border:0}
+.activity small{display:block;color:var(--muted);margin-top:5px}
+.agenda{display:flex;gap:15px;align-items:center;padding:15px 0;border-bottom:1px solid var(--border)}
+.date{background:#25183c;color:#c29aff;border-radius:9px;padding:10px;text-align:center;min-width:52px}
+.date strong{font-size:19px;display:block}
+.date small{font-size:10px}
+.profile{display:flex;gap:16px;align-items:center;margin-bottom:20px}
+.avatar{width:52px;height:52px;border-radius:13px;background:#302044;color:#c29aff;display:grid;place-items:center;font-size:20px;font-weight:bold}
+.progress{height:8px;background:#292735;border-radius:10px;overflow:hidden;margin-top:12px}
+.progress span{display:block;background:#a36aff;height:100%;width:68%}
+.empty{padding:30px;color:var(--muted);font-size:13px;line-height:1.7}
+@media(max-width:1050px){.cards{grid-template-columns:repeat(2,1fr)}.grid{grid-template-columns:1fr}}
+@media(max-width:700px){body{display:block}.sidebar{width:100%;padding:15px}.logo{margin-bottom:15px}.menu{display:flex;overflow-x:auto}.menu-title{display:none}.menu a{white-space:nowrap;font-size:12px}.main{padding:18px}.user{display:none}.cards{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:390px){.cards{grid-template-columns:1fr}}
 </style>
 </head>
-
 <body>
-
-<!-- MENU -->
-
 <aside class="sidebar">
-
-    <div class="logo">Nex<span>Cobra</span></div>
-
-    <div class="menu-title">Principal</div>
-
-    <nav class="menu">
-        <a class="active" data-page="inicio">
-            <span class="menu-icon">▦</span> Visão geral
-        </a>
-
-        <a data-page="faturas">
-            <span class="menu-icon">▤</span> Faturas
-        </a>
-
-        <a data-page="pendencias">
-            <span class="menu-icon">◉</span> Pendências
-        </a>
-
-        <a data-page="clientes">
-            <span class="menu-icon">♧</span> Clientes
-        </a>
-
-        <a data-page="agenda">
-            <span class="menu-icon">▣</span> Agenda
-        </a>
-    </nav>
-
-    <div class="menu-title">Gestão</div>
-
-    <nav class="menu">
-        <a data-page="historico">
-            <span class="menu-icon">◷</span> Histórico
-        </a>
-
-        <a data-page="relatorios">
-            <span class="menu-icon">▥</span> Relatórios
-        </a>
-
-        <a data-page="configuracoes">
-            <span class="menu-icon">⚙</span> Configurações
-        </a>
-    </nav>
-
+<div class="logo">Nex<span>Cobra</span></div>
+<div class="menu-title">Principal</div>
+<nav class="menu">
+<a class="active" data-page="inicio">▦ Visão geral</a>
+<a data-page="faturas">▤ Faturas</a>
+<a data-page="pendencias">◉ Pendências</a>
+<a data-page="clientes">♧ Clientes</a>
+<a data-page="agenda">▣ Agenda</a>
+</nav>
+<div class="menu-title">Gestão</div>
+<nav class="menu">
+<a data-page="historico">◷ Histórico</a>
+<a data-page="relatorios">▥ Relatórios</a>
+<a data-page="configuracoes">⚙ Configurações</a>
+</nav>
 </aside>
 
-<!-- CONTEÚDO -->
-
 <main class="main">
+<header>
+<div><h1 id="title">Visão geral</h1><p class="subtitle" id="subtitle">Acompanhe a situação financeira da sua carteira.</p></div>
+<div class="user">● Área administrativa</div>
+</header>
 
-    <header class="topbar">
-        <div>
-            <h1 id="page-title">Visão geral</h1>
-            <p class="subtitle" id="page-subtitle">
-                Acompanhe a situação financeira da sua carteira.
-            </p>
-        </div>
+<!-- VISÃO GERAL -->
+<section class="page active" id="inicio">
+<div class="welcome"><h2>Bem-vindo ao NexCobra.</h2><p>Organize suas cobranças, acompanhe recebimentos e mantenha tudo sob controle.</p></div>
+<h2>Resumo financeiro</h2>
+<div class="cards">
+<div class="card"><small>Total em aberto</small><div class="value purple">R$ 48.750</div><small>Valores ainda não recebidos</small></div>
+<div class="card"><small>Total vencido</small><div class="value red">R$ 18.420</div><small>Faturas vencidas</small></div>
+<div class="card"><small>Recebido no mês</small><div class="value green">R$ 32.890</div><small>Pagamentos identificados</small></div>
+<div class="card"><small>Clientes bloqueados</small><div class="value yellow">12</div><small>Com restrição ativa</small></div>
+</div>
+<h2>Acompanhamento</h2>
+<div class="grid">
+<div class="panel"><h3>⚠ Cobranças que precisam de atenção</h3>
+<div class="rowitem"><div><b>Empresa Exemplo Ltda.</b><span class="muted">Fatura #10452 · Vencida há 8 dias</span></div><div>R$ 2.450,00<br><span class="status red">VENCIDA</span></div></div>
+<div class="rowitem"><div><b>Comercial Modelo</b><span class="muted">Fatura #10481 · Aguardando comprovante</span></div><div>R$ 1.200,00<br><span class="status purple">AGUARDANDO</span></div></div>
+<div class="rowitem"><div><b>Cliente Demonstração</b><span class="muted">Fatura #10503 · Vencida há 3 dias</span></div><div>R$ 890,00<br><span class="status red">VENCIDA</span></div></div>
+</div>
+<div class="panel"><h3>◷ Atividades recentes</h3>
+<div class="activity"><b>Pagamento registrado</b><small>Cliente Modelo · Há 15 minutos</small></div>
+<div class="activity"><b>Nova cobrança realizada</b><small>Empresa Exemplo · Há 1 hora</small></div>
+<div class="activity"><b>Planilha atualizada</b><small>Importação de pendências · Hoje</small></div>
+<div class="activity"><b>Vencimento alterado</b><small>Cliente Demonstração · Hoje</small></div>
+</div></div>
+<h2>Próximas atividades</h2>
+<div class="panel">
+<div class="agenda"><div class="date"><strong>30</strong><small>OUT</small></div><div><b>Retorno de cobrança</b><span class="muted">Empresa Exemplo · Verificar pagamento</span></div></div>
+<div class="agenda"><div class="date"><strong>31</strong><small>OUT</small></div><div><b>Verificar comprovante</b><span class="muted">Comercial Modelo · Aguardando retorno</span></div></div>
+</div>
+</section>
 
-        <div class="user">● Área administrativa</div>
-    </header>
+<!-- FATURAS -->
+<section class="page" id="faturas">
+<h2>Resumo de faturas</h2>
+<div class="cards">
+<div class="card"><small>Total de faturas</small><div class="value purple">248</div><small>Registros cadastrados</small></div>
+<div class="card"><small>Em aberto</small><div class="value yellow">86</div><small>Aguardando pagamento</small></div>
+<div class="card"><small>Vencidas</small><div class="value red">32</div><small>Precisam de atenção</small></div>
+<div class="card"><small>Pagas</small><div class="value green">130</div><small>Liquidadas</small></div>
+</div>
+<div class="panel">
+<h3>Consulta de faturas</h3>
+<div class="toolbar"><input placeholder="Buscar cliente ou duplicata..."><select><option>Todas as situações</option><option>Em aberto</option><option>Vencidas</option><option>Pagas</option></select><select><option>Todos os períodos</option><option>Este mês</option><option>Últimos 30 dias</option></select><button>＋ Nova fatura</button></div>
+<div class="table-wrap"><table>
+<thead><tr><th>CLIENTE</th><th>DUPLICATA</th><th>PARCELA</th><th>VENCIMENTO</th><th>VALOR</th><th>SITUAÇÃO</th></tr></thead>
+<tbody>
+<tr><td>Empresa Exemplo</td><td>10452</td><td>01/02</td><td>22/10/2026</td><td>R$ 2.450,00</td><td><span class="status red">VENCIDA</span></td></tr>
+<tr><td>Comercial Modelo</td><td>10481</td><td>01/01</td><td>29/10/2026</td><td>R$ 1.200,00</td><td><span class="status purple">EM ABERTO</span></td></tr>
+<tr><td>Cliente Demonstração</td><td>10503</td><td>02/03</td><td>27/10/2026</td><td>R$ 890,00</td><td><span class="status red">VENCIDA</span></td></tr>
+<tr><td>Transportes Modelo</td><td>10510</td><td>01/01</td><td>15/10/2026</td><td>R$ 3.600,00</td><td><span class="status green">PAGA</span></td></tr>
+<tr><td>Empresa Paraná</td><td>10515</td><td>01/02</td><td>05/11/2026</td><td>R$ 1.750,00</td><td><span class="status purple">EM ABERTO</span></td></tr>
+</tbody></table></div>
+</div>
+<div class="panel" style="margin-top:18px"><h3>Detalhes da fatura selecionada</h3><p class="muted">Visualização demonstrativa de parcelas, pagamentos realizados, saldo pendente e histórico de baixas.</p><div class="toolbar"><button>Registrar pagamento</button><button class="secondary">Ver histórico</button></div></div>
+</section>
 
-    <!-- INÍCIO -->
+<!-- PENDÊNCIAS -->
+<section class="page" id="pendencias">
+<h2>Visão das pendências</h2>
+<div class="cards">
+<div class="card"><small>Valor pendente</small><div class="value red">R$ 18.420</div><small>Total em atraso</small></div>
+<div class="card"><small>Clientes pendentes</small><div class="value purple">42</div><small>Com valores em aberto</small></div>
+<div class="card"><small>Bloqueados</small><div class="value yellow">12</div><small>Restrição ativa</small></div>
+<div class="card"><small>Aguardando retorno</small><div class="value green">18</div><small>Em acompanhamento</small></div>
+</div>
+<div class="panel"><h3>Lista de pendências</h3>
+<div class="toolbar"><input placeholder="Buscar cliente, código ou CNPJ..."><select><option>Todas as pendências</option><option>Bloqueados</option><option>Não bloqueados</option></select><select><option>Ordenar por valor</option><option>Mais antigas</option></select></div>
+<div class="table-wrap"><table><thead><tr><th>CLIENTE</th><th>CÓDIGO</th><th>VENCIMENTO</th><th>VALOR PENDENTE</th><th>RESTRIÇÃO</th><th>STATUS</th></tr></thead>
+<tbody>
+<tr><td>Empresa Exemplo Ltda.</td><td>00124</td><td>22/10/2026</td><td>R$ 2.450,00</td><td><span class="status red">BLOQUEADO</span></td><td>COBRADO</td></tr>
+<tr><td>Comercial Modelo</td><td>00135</td><td>24/10/2026</td><td>R$ 1.200,00</td><td>—</td><td>AGUARDANDO RETORNO</td></tr>
+<tr><td>Cliente Demonstração</td><td>00142</td><td>27/10/2026</td><td>R$ 890,00</td><td><span class="status red">BLOQUEADO</span></td><td>NÃO COBRADO</td></tr>
+</tbody></table></div>
+</div>
+</section>
 
-    <section class="page-section active" id="inicio">
+<!-- CLIENTES -->
+<section class="page" id="clientes">
+<h2>Carteira de clientes</h2>
+<div class="cards">
+<div class="card"><small>Total de clientes</small><div class="value purple">186</div><small>Na carteira</small></div>
+<div class="card"><small>Ativos</small><div class="value green">174</div><small>Sem restrição</small></div>
+<div class="card"><small>Bloqueados</small><div class="value red">12</div><small>Com restrição</small></div>
+<div class="card"><small>Com pendências</small><div class="value yellow">42</div><small>Precisam de acompanhamento</small></div>
+</div>
+<div class="panel"><h3>Buscar clientes</h3>
+<div class="toolbar"><input placeholder="Nome, CNPJ ou código do cliente..."><button>Pesquisar</button></div>
+<div class="table-wrap"><table><thead><tr><th>CLIENTE</th><th>CÓDIGO</th><th>CNPJ</th><th>SALDO PENDENTE</th><th>SITUAÇÃO</th></tr></thead>
+<tbody>
+<tr><td>Empresa Exemplo Ltda.</td><td>00124</td><td>00.000.000/0001-00</td><td>R$ 2.450,00</td><td><span class="status red">BLOQUEADO</span></td></tr>
+<tr><td>Comercial Modelo</td><td>00135</td><td>11.111.111/0001-11</td><td>R$ 1.200,00</td><td><span class="status green">ATIVO</span></td></tr>
+<tr><td>Transportes Modelo</td><td>00148</td><td>22.222.222/0001-22</td><td>R$ 0,00</td><td><span class="status green">ATIVO</span></td></tr>
+</tbody></table></div>
+</div>
+<div class="panel" style="margin-top:18px"><div class="profile"><div class="avatar">EM</div><div><b>Empresa Modelo Ltda.</b><span class="muted">Código 00124 · Perfil demonstrativo</span></div></div><div class="cards"><div class="card"><small>Saldo pendente</small><div class="value red">R$ 2.450</div></div><div class="card"><small>Faturas</small><div class="value purple">5</div></div></div><h3>Histórico financeiro</h3><p class="muted">Aqui aparecerão pagamentos, cobranças, faturas e observações do cliente.</p></div>
+</section>
 
-        <div class="welcome">
-            <h2>Bem-vindo ao NexCobra.</h2>
-            <p>
-                Organize suas cobranças, acompanhe recebimentos
-                e mantenha tudo sob controle em um só lugar.
-            </p>
-        </div>
+<!-- AGENDA -->
+<section class="page" id="agenda">
+<h2>Organização das cobranças</h2>
+<div class="cards">
+<div class="card"><small>Tarefas de hoje</small><div class="value purple">8</div><small>Atividades programadas</small></div>
+<div class="card"><small>Retornos pendentes</small><div class="value yellow">5</div><small>Aguardando resposta</small></div>
+<div class="card"><small>Promessas de pagamento</small><div class="value green">4</div><small>Em acompanhamento</small></div>
+<div class="card"><small>Atrasadas</small><div class="value red">3</div><small>Tarefas não concluídas</small></div>
+</div>
+<div class="panel"><h3>Agenda de atividades</h3>
+<div class="agenda"><div class="date"><strong>30</strong><small>OUT</small></div><div><b>Retornar cobrança</b><span class="muted">Empresa Exemplo · Conferir pagamento</span></div><span class="status red">PRIORIDADE</span></div>
+<div class="agenda"><div class="date"><strong>30</strong><small>OUT</small></div><div><b>Solicitar comprovante</b><span class="muted">Comercial Modelo · Aguardando retorno</span></div><span class="status purple">PENDENTE</span></div>
+<div class="agenda"><div class="date"><strong>31</strong><small>OUT</small></div><div><b>Verificar promessa de pagamento</b><span class="muted">Transportes Modelo</span></div><span class="status green">AGENDADO</span></div>
+<button style="margin-top:20px">＋ Nova atividade</button>
+</div>
+</section>
 
-        <h2 class="section-title">Resumo financeiro</h2>
+<!-- HISTÓRICO -->
+<section class="page" id="historico">
+<h2>Registro de movimentações</h2>
+<div class="cards">
+<div class="card"><small>Movimentações no mês</small><div class="value purple">128</div></div>
+<div class="card"><small>Baixas realizadas</small><div class="value green">56</div></div>
+<div class="card"><small>Cobranças enviadas</small><div class="value yellow">48</div></div>
+<div class="card"><small>Alterações</small><div class="value red">24</div></div>
+</div>
+<div class="panel"><h3>Histórico de atividades</h3>
+<div class="toolbar"><input placeholder="Pesquisar movimentação..."><select><option>Todas as atividades</option><option>Baixas</option><option>Cobranças</option><option>Alterações</option></select></div>
+<div class="activity"><b>Pagamento parcial registrado</b><small>Empresa Exemplo · Duplicata 10452 · Hoje às 09:30</small></div>
+<div class="activity"><b>Cobrança enviada</b><small>Comercial Modelo · Hoje às 08:45</small></div>
+<div class="activity"><b>Vencimento alterado</b><small>Cliente Modelo · Ontem às 16:20</small></div>
+<div class="activity"><b>Baixa realizada</b><small>Transportes Modelo · Ontem às 14:10</small></div>
+</div>
+</section>
 
-        <div class="cards">
+<!-- RELATÓRIOS -->
+<section class="page" id="relatorios">
+<h2>Indicadores financeiros</h2>
+<div class="cards">
+<div class="card"><small>Inadimplência</small><div class="value red">27,4%</div><small>Percentual demonstrativo</small></div>
+<div class="card"><small>Recebido no mês</small><div class="value green">R$ 32.890</div><small>Valores recebidos</small></div>
+<div class="card"><small>Em aberto</small><div class="value purple">R$ 48.750</div><small>Saldo da carteira</small></div>
+<div class="card"><small>Recuperação</small><div class="value yellow">68%</div><small>Índice ilustrativo</small></div>
+</div>
+<div class="panel"><h3>Visão de desempenho</h3>
+<p class="muted">Distribuição ilustrativa do acompanhamento financeiro.</p>
+<p style="margin-top:22px;font-size:13px">Recebimentos <b style="float:right">68%</b></p><div class="progress"><span></span></div>
+<p style="margin-top:22px;font-size:13px">Valores pendentes <b style="float:right">32%</b></p><div class="progress"><span style="width:32%"></span></div>
+<div class="toolbar"><select><option>Outubro de 2026</option><option>Setembro de 2026</option></select><button>Exportar relatório</button></div>
+</div>
+</section>
 
-            <div class="card">
-                <div class="card-label">Total em aberto</div>
-                <div class="card-value purple">R$ 48.750</div>
-                <div class="card-detail">Valores ainda não recebidos</div>
-            </div>
-
-            <div class="card">
-                <div class="card-label">Total vencido</div>
-                <div class="card-value red">R$ 18.420</div>
-                <div class="card-detail">Faturas com vencimento ultrapassado</div>
-            </div>
-
-            <div class="card">
-                <div class="card-label">Recebido no mês</div>
-                <div class="card-value green">R$ 32.890</div>
-                <div class="card-detail">Pagamentos identificados</div>
-            </div>
-
-            <div class="card">
-                <div class="card-label">Clientes bloqueados</div>
-                <div class="card-value yellow">12</div>
-                <div class="card-detail">Clientes com restrição ativa</div>
-            </div>
-
-        </div>
-
-        <h2 class="section-title">Acompanhamento</h2>
-
-        <div class="content-grid">
-
-            <div class="panel">
-                <h3>⚠ Cobranças que precisam de atenção</h3>
-
-                <div class="item">
-                    <div>
-                        <strong>Empresa Exemplo Ltda.</strong>
-                        <small>Fatura #10452 · Vencida há 8 dias</small>
-                    </div>
-                    <div>
-                        <strong>R$ 2.450,00</strong><br>
-                        <span class="status red-bg">VENCIDA</span>
-                    </div>
-                </div>
-
-                <div class="item">
-                    <div>
-                        <strong>Comercial Modelo</strong>
-                        <small>Fatura #10481 · Aguardando comprovante</small>
-                    </div>
-                    <div>
-                        <strong>R$ 1.200,00</strong><br>
-                        <span class="status purple-bg">AGUARDANDO</span>
-                    </div>
-                </div>
-
-                <div class="item">
-                    <div>
-                        <strong>Cliente Demonstração</strong>
-                        <small>Fatura #10503 · Vencida há 3 dias</small>
-                    </div>
-                    <div>
-                        <strong>R$ 890,00</strong><br>
-                        <span class="status red-bg">VENCIDA</span>
-                    </div>
-                </div>
-
-            </div>
-
-            <div class="panel">
-                <h3>◷ Atividades recentes</h3>
-
-                <div class="activity">
-                    <div class="dot"></div>
-                    <div>
-                        <strong>Pagamento registrado</strong>
-                        <small>Cliente Modelo · Há 15 minutos</small>
-                    </div>
-                </div>
-
-                <div class="activity">
-                    <div class="dot"></div>
-                    <div>
-                        <strong>Nova cobrança realizada</strong>
-                        <small>Empresa Exemplo · Há 1 hora</small>
-                    </div>
-                </div>
-
-                <div class="activity">
-                    <div class="dot"></div>
-                    <div>
-                        <strong>Planilha atualizada</strong>
-                        <small>Importação de pendências · Hoje</small>
-                    </div>
-                </div>
-
-                <div class="activity">
-                    <div class="dot"></div>
-                    <div>
-                        <strong>Vencimento alterado</strong>
-                        <small>Cliente Demonstração · Hoje</small>
-                    </div>
-                </div>
-
-            </div>
-
-        </div>
-
-        <h2 class="section-title">Próximas atividades</h2>
-
-        <div class="panel">
-
-            <div class="agenda-item">
-                <div class="agenda-date">
-                    <strong>30</strong>
-                    <small>OUT</small>
-                </div>
-                <div class="agenda-info">
-                    <strong>Retorno de cobrança</strong>
-                    <small>Empresa Exemplo · Verificar pagamento</small>
-                </div>
-            </div>
-
-            <div class="agenda-item">
-                <div class="agenda-date">
-                    <strong>31</strong>
-                    <small>OUT</small>
-                </div>
-                <div class="agenda-info">
-                    <strong>Verificar comprovante</strong>
-                    <small>Comercial Modelo · Aguardando retorno</small>
-                </div>
-            </div>
-
-            <div class="agenda-item">
-                <div class="agenda-date">
-                    <strong>03</strong>
-                    <small>NOV</small>
-                </div>
-                <div class="agenda-info">
-                    <strong>Acompanhamento de pendência</strong>
-                    <small>Cliente Demonstração · Conferir saldo</small>
-                </div>
-            </div>
-
-        </div>
-
-    </section>
-
-    <!-- FATURAS -->
-
-    <section class="page-section" id="faturas">
-        <div class="empty-state">
-            <h2>Faturas</h2>
-            <p>
-                Aqui ficará a relação de todas as faturas,
-                pagamentos, parcelas e baixas.
-            </p>
-        </div>
-    </section>
-
-    <!-- PENDÊNCIAS -->
-
-    <section class="page-section" id="pendencias">
-        <div class="empty-state">
-            <h2>Pendências</h2>
-            <p>
-                Centralize os valores pendentes, clientes bloqueados
-                e cobranças que precisam de acompanhamento.
-            </p>
-        </div>
-    </section>
-
-    <!-- CLIENTES -->
-
-    <section class="page-section" id="clientes">
-        <div class="empty-state">
-            <h2>Clientes</h2>
-            <p>
-                Consulte os dados cadastrais, faturas,
-                pagamentos e histórico de cada cliente.
-            </p>
-        </div>
-    </section>
-
-    <!-- AGENDA -->
-
-    <section class="page-section" id="agenda">
-        <div class="empty-state">
-            <h2>Agenda de cobranças</h2>
-            <p>
-                Organize retornos, promessas de pagamento,
-                vencimentos e tarefas do dia.
-            </p>
-        </div>
-    </section>
-
-    <!-- HISTÓRICO -->
-
-    <section class="page-section" id="historico">
-        <div class="empty-state">
-            <h2>Histórico de atividades</h2>
-            <p>
-                Consulte as alterações realizadas nas faturas,
-                baixas, pagamentos e cobranças.
-            </p>
-        </div>
-    </section>
-
-    <!-- RELATÓRIOS -->
-
-    <section class="page-section" id="relatorios">
-        <div class="empty-state">
-            <h2>Relatórios</h2>
-            <p>
-                Acompanhe indicadores de inadimplência,
-                recebimentos e evolução financeira.
-            </p>
-        </div>
-    </section>
-
-    <!-- CONFIGURAÇÕES -->
-
-    <section class="page-section" id="configuracoes">
-        <div class="empty-state">
-            <h2>Configurações</h2>
-            <p>
-                Futuramente, você poderá personalizar
-                o funcionamento do NexCobra por aqui.
-            </p>
-        </div>
-    </section>
+<!-- CONFIGURAÇÕES -->
+<section class="page" id="configuracoes">
+<h2>Personalização do sistema</h2>
+<div class="panel"><h3>Aparência</h3>
+<div class="rowitem"><div><b>Tema escuro</b><span class="muted">Aparência atual do NexCobra</span></div><span class="status green">ATIVO</span></div>
+<div class="rowitem"><div><b>Cor de destaque</b><span class="muted">Roxo NexCobra</span></div><span style="color:#a36aff">● Roxo</span></div>
+</div>
+<div class="panel" style="margin-top:18px"><h3>Preferências de cobrança</h3>
+<div class="rowitem"><div><b>Alertas de vencimento</b><span class="muted">Notificações de faturas próximas do vencimento</span></div><span class="status purple">DEMONSTRAÇÃO</span></div>
+<div class="rowitem"><div><b>Modelos de e-mail</b><span class="muted">Textos padronizados para cobranças</span></div><button class="secondary">Visualizar</button></div>
+</div>
+</section>
 
 </main>
 
 <script>
-const links = document.querySelectorAll(".menu a");
-const sections = document.querySelectorAll(".page-section");
-
-const titles = {
-    inicio: ["Visão geral", "Acompanhe a situação financeira da sua carteira."],
-    faturas: ["Faturas", "Consulte e gerencie suas faturas."],
-    pendencias: ["Pendências", "Acompanhe os valores que precisam de atenção."],
-    clientes: ["Clientes", "Consulte sua carteira de clientes."],
-    agenda: ["Agenda", "Organize suas atividades e cobranças."],
-    historico: ["Histórico", "Acompanhe as movimentações realizadas."],
-    relatorios: ["Relatórios", "Analise os resultados da sua carteira."],
-    configuracoes: ["Configurações", "Personalize o NexCobra."]
+const names={
+inicio:["Visão geral","Acompanhe a situação financeira da sua carteira."],
+faturas:["Faturas","Consulte e acompanhe todas as faturas."],
+pendencias:["Pendências","Controle os valores pendentes e restrições."],
+clientes:["Clientes","Consulte sua carteira e o histórico financeiro."],
+agenda:["Agenda","Organize suas cobranças e retornos."],
+historico:["Histórico","Acompanhe as movimentações realizadas."],
+relatorios:["Relatórios","Analise os indicadores da sua carteira."],
+configuracoes:["Configurações","Personalize o NexCobra."]
 };
-
-links.forEach(link => {
-    link.addEventListener("click", () => {
-        const page = link.dataset.page;
-
-        if (!page) return;
-
-        links.forEach(item => item.classList.remove("active"));
-        link.classList.add("active");
-
-        sections.forEach(section => {
-            section.classList.remove("active");
-        });
-
-        document.getElementById(page).classList.add("active");
-
-        document.getElementById("page-title").textContent =
-            titles[page][0];
-
-        document.getElementById("page-subtitle").textContent =
-            titles[page][1];
-
-        window.scrollTo({ top: 0, behavior: "smooth" });
-    });
+document.querySelectorAll("[data-page]").forEach(link=>{
+link.addEventListener("click",()=>{
+const page=link.dataset.page;
+document.querySelectorAll(".page").forEach(p=>p.classList.remove("active"));
+document.querySelectorAll("[data-page]").forEach(a=>a.classList.remove("active"));
+document.getElementById(page).classList.add("active");
+link.classList.add("active");
+document.getElementById("title").textContent=names[page][0];
+document.getElementById("subtitle").textContent=names[page][1];
+window.scrollTo({top:0,behavior:"smooth"});
+});
 });
 </script>
-
 </body>
 </html>
-
 
 
 
